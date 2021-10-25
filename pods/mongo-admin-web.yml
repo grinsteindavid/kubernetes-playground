@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongoku
+  labels:
+    internal-service-port27017: ClusterIP
+    external-service-port3100: NodePort
+spec:
+  containers:
+    - name: mongoku
+      image: huggingface/mongoku
+      ports:
+        - containerPort: 3100
+      env:
+        - name: MONGOKU_DEFAULT_HOST
+          value: "mongodb://root:root@internal-service-port27017"
